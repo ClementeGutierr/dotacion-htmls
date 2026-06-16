@@ -50,7 +50,7 @@ table.sched td{padding:3px 5px;text-align:center}
 .upd-badge{position:fixed;top:8px;right:12px;background:rgba(0,0,0,0.55);color:#9fb4d8;padding:4px 10px;border-radius:6px;font-size:11px;z-index:9999;pointer-events:none}</style>
 </head>
 <body>
-<div class="upd-badge">Actualizado: 16/06/2026 10:55 am</div>
+<div class="upd-badge">Actualizado: 16/06/2026 11:00 am</div>
 <div class="wrap">
 <div class="header"><h1>CLAP CHICKEN MDE — Dotación</h1><div class="sub" id="subtitle"></div></div>
 <div class="pdv-bar" id="pdv-bar"></div>
@@ -66,10 +66,10 @@ const JORN_BY_DAY={"lun": {"CHICKEN VIVA": [{"emp": "HESLAIDER ALBERTO ESTRADA B
 const INC_BY_DAY={"lun": {"CHICKEN ARKADIA": [{"doc_id": "43865245", "emp": "ANGELA MARIA CARDONA PEREZ", "area": "Personal", "marcaciones": [{"tipo": "Sin entrada", "hora": "21:12"}]}]}};
 const SUM_BY_DAY={"lun": {"CHICKEN VIVA": {"adicionales": {"Personal": 12}, "ausentes": {}}, "CHICKEN ARKADIA": {"adicionales": {"Personal": 21}, "ausentes": {"Personal": 15}}, "CHICKEN SANTAFE": {"adicionales": {"Personal": 16}, "ausentes": {"Personal": 13}}}};
 const DAYS=["lun"];
-const DAY_LABEL={"lun": "Lun 01/06", "mar": "Mar 02/06", "mie": "Mié 03/06", "jue": "Jue 04/06", "vie": "Vie 05/06", "sab": "Sáb 06/06", "dom": "Dom 07/06", "lun2": "Lun 08/06", "mar2": "Mar 09/06", "mie2": "Mié 10/06", "jue2": "Jue 11/06", "vie2": "Vie 12/06", "sab2": "Sáb 13/06", "dom2": "Dom 14/06"};
+const DAY_LABEL={"lun": "Lun 15/06", "mar": "Mar 16/06", "mie": "Mié 17/06", "jue": "Jue 18/06", "vie": "Vie 19/06", "sab": "Sáb 20/06", "dom": "Dom 21/06", "lun2": "Lun 22/06", "mar2": "Mar 23/06", "mie2": "Mié 24/06", "jue2": "Jue 25/06", "vie2": "Vie 26/06", "sab2": "Sáb 27/06", "dom2": "Dom 28/06"};
 const DAY_DOW={"lun": 0, "mar": 1, "mie": 2, "jue": 3, "vie": 4, "sab": 5, "dom": 6, "lun2": 0, "mar2": 1, "mie2": 2, "jue2": 3, "vie2": 4, "sab2": 5, "dom2": 6};
 const DAY_SEM={"lun": "S1", "mar": "S1", "mie": "S1", "jue": "S1", "vie": "S1", "sab": "S1", "dom": "S1", "lun2": "S2", "mar2": "S2", "mie2": "S2", "jue2": "S2", "vie2": "S2", "sab2": "S2", "dom2": "S2"};
-const SEMS=[{"key": "S1", "lbl": "S1 — 1 jun al 7 jun", "dates": ["Lun 01/06", "Mar 02/06", "Mié 03/06", "Jue 04/06", "Vie 05/06", "Sáb 06/06", "Dom 07/06"]}, {"key": "S2", "lbl": "S2 — 8 jun al 14 jun", "dates": ["Lun 08/06", "Mar 09/06", "Mié 10/06", "Jue 11/06", "Vie 12/06", "Sáb 13/06", "Dom 14/06"]}];
+const SEMS=[{"key": "S1", "lbl": "S1 — 15 jun al 21 jun", "dates": ["Lun 15/06", "Mar 16/06", "Mié 17/06", "Jue 18/06", "Vie 19/06", "Sáb 20/06", "Dom 21/06"]}, {"key": "S2", "lbl": "S2 — 22 jun al 28 jun", "dates": ["Lun 22/06", "Mar 23/06", "Mié 24/06", "Jue 25/06", "Vie 26/06", "Sáb 27/06", "Dom 28/06"]}];
 const STAFF_TRACK={};
 if(typeof AREAS==='undefined')var AREAS=['\u0053al\u00f3n','Cocina','Barra','Admin'];
 var FRANJAS=[{lbl:'APER',hrs:[8,9,10,11]},{lbl:'ALMU',hrs:[12,13,14]},{lbl:'MUERT',hrs:[15,16,17]},{lbl:'CENA',hrs:[18,19,20,21]},{lbl:'CIER',hrs:[22,23]}];
