@@ -50,7 +50,7 @@ table.sched td{padding:3px 5px;text-align:center}
 .upd-badge{position:fixed;top:8px;right:12px;background:rgba(0,0,0,0.55);color:#9fb4d8;padding:4px 10px;border-radius:6px;font-size:11px;z-index:9999;pointer-events:none}</style>
 </head>
 <body>
-<div class="upd-badge">Actualizado: 14/07/2026 04:34 pm</div>
+<div class="upd-badge">Actualizado: 14/07/2026 04:49 pm</div>
 <div class="wrap">
 <div class="header"><h1>OLIVIA MDE — Dotación</h1><div class="sub" id="subtitle"></div></div>
 <div class="pdv-bar" id="pdv-bar"></div>
@@ -149,7 +149,7 @@ function render(){
     pdvPanel.innerHTML='<div class="panel-hdr">Resumen PDV <span style="color:var(--muted);font-weight:400;font-size:12px">('+track.length+' personas)</span></div>';
     
     // Calculate 3-bar metrics
-    // Admins tienen salario fijo: NO se cuentan en extras/ocio (pero sÃ­ en costo)
+    // Admins tienen salario fijo: NO se cuentan en extras/ocio (pero s\u00ed en costo)
     var totalExcess=0, totalIdle=0, costHrs=0, countTc=0;
     track.forEach(function(emp){
       var isAdmin=emp.zona==='Admin';
@@ -162,7 +162,7 @@ function render(){
         costHrs+=emp.acum_real;
       }
     });
-    // City averages â€” tambiÃ©n excluye admins
+    // City averages \u2014 tambi\u00e9n excluye admins
     var cityEx=0,cityId=0,cityN=0;
     PDVS.forEach(function(p){
       var tr=STAFF_TRACK[p]||[];if(tr.length===0)return;cityN++;
@@ -260,7 +260,7 @@ function render(){
             return;
           }
           if(d.status==='NOVEDAD'){
-            // Etiqueta segÃºn novedad_tipo (VAC/INCP/CD/LMATER/LR/LNR/PERM/SUSP/CUMPLE/REN/AUSENCIA N)
+            // Etiqueta seg\u00fan novedad_tipo (VAC/INCP/CD/LMATER/LR/LNR/PERM/SUSP/CUMPLE/REN/AUSENCIA N)
             var nv=(d.novedad||'').toString().toUpperCase();
             var novLabel=nv;var novBg='#581c87';var novColor='#e9d5ff';
             if(nv.startsWith('VAC')){novLabel='VAC';novBg='#155e75';novColor='#a5f3fc';}
@@ -610,88 +610,7 @@ function renderCatorcenaCity(ct){
     t+='<div style="flex:1;height:4px;background:var(--surface2);border-radius:2px;position:relative;overflow:visible">';
     t+='<div style="width:'+pR+'%;height:100%;background:'+bC+';border-radius:2px;position:relative;z-index:1"></div>';
     t+='<div style="position:absolute;left:'+pE+'%;top:-3px;width:2px;height:10px;background:var(--muted2);z-index:2;border-radius:1px"></div>';
-    t+='<div style="position:absolute;left:calc('+pE+'% - 3px);top:-5px;width:8px;height:8px;background:#fff;border-radius:50%;z-index:3;box-shadow:0 0 3px rgba(0,0,0,.5)"></div>';
-    t+='</div></div></td></tr>';
-  });
-  t+='</tbody></table>';
-  var tw=document.createElement('div');tw.style.cssText='overflow-x:auto';tw.innerHTML=t;
-  panel.appendChild(tw);sec.appendChild(panel);ct.appendChild(sec);
-}
-
-/* â”€â”€ Modal P: click en celda P del control individual â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-   Muestra fecha completa (ej. 'Lunes S1 Â· 13 de julio'), nombre + cÃ©dula
-   y turno(s) programado(s). Cierra con X, click en overlay, o Esc. */
-function mostrarModalP(pdv, doc, dayKey){
-  if(typeof STAFF_TRACK==='undefined') return;
-  var track=STAFF_TRACK[pdv]; if(!track) return;
-  var emp=null;
-  for(var i=0;i<track.length;i++){ if(String(track[i].doc)===String(doc)){emp=track[i];break;} }
-  if(!emp||!emp.dias||!emp.dias[dayKey]) return;
-  var d=emp.dias[dayKey];
-  var pad2=function(n){return n<10?'0'+n:''+n;};
-  var diaSemArr=['Lunes','Martes','MiÃ©rcoles','Jueves','Viernes','SÃ¡bado','Domingo','Lunes','Martes','MiÃ©rcoles','Jueves','Viernes','SÃ¡bado','Domingo'];
-  var mesesEs=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
-  var catIdx=(d.cat_idx!==undefined)?d.cat_idx:0;
-  var diaSem=diaSemArr[catIdx]||'';
-  var sem=(catIdx<7)?'S1':'S2';
-  var headerTxt=diaSem+' '+sem;
-  if(d.fecha_iso){
-    var p=d.fecha_iso.split('-');
-    if(p.length===3){
-      var dd=parseInt(p[2],10), mm=parseInt(p[1],10);
-      if(!isNaN(dd)&&!isNaN(mm)&&mm>=1&&mm<=12) headerTxt+=' Â· '+dd+' de '+mesesEs[mm-1];
-    }
-  }
-  var turnos=d.turnos||[];
-  var turnosHtml='';
-  function fmtRange(h1,h2){ return pad2(h1)+':00 â†’ '+pad2(h2)+':00'; }
-  for(var j=0;j<turnos.length;j++){
-    var t=turnos[j], rng='';
-    if(typeof t==='string' && t.indexOf('-')>=0){
-      var pp=t.split('-'); var h1=parseInt(pp[0],10), h2=parseInt(pp[1],10);
-      if(!isNaN(h1)&&!isNaN(h2)) rng=fmtRange(h1,h2);
-    } else if(Array.isArray(t) && t.length===2){
-      rng=fmtRange(parseInt(t[0],10), parseInt(t[1],10));
-    }
-    if(rng) turnosHtml+='<div style="font-family:JetBrains Mono,monospace;font-size:14px;color:var(--green);margin-top:4px">'+rng+'</div>';
-  }
-  if(!turnosHtml){
-    if(d.status==='DESC') turnosHtml='<div style="color:var(--muted);font-size:13px;margin-top:4px">Descanso</div>';
-    else if(d.status==='NOVEDAD') turnosHtml='<div style="color:var(--muted);font-size:13px;margin-top:4px">Novedad: '+(d.novedad||'').toString()+'</div>';
-    else turnosHtml='<div style="color:var(--muted);font-size:13px;margin-top:4px">Sin turno programado</div>';
-  }
-  var prev=document.getElementById('modal-p-overlay'); if(prev) prev.remove();
-  var overlay=document.createElement('div');
-  overlay.id='modal-p-overlay';
-  overlay.style.cssText='position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.65);z-index:9999;display:flex;align-items:center;justify-content:center;';
-  var card=document.createElement('div');
-  card.style.cssText='background:#0f1117;border:1px solid #333;border-radius:10px;min-width:320px;max-width:90vw;color:var(--text);box-shadow:0 8px 24px rgba(0,0,0,.6);font-family:DM Sans,sans-serif;';
-  var html='<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid #262a38">';
-  html+='<div style="font-weight:600;font-size:14px;color:var(--text)">'+headerTxt+'</div>';
-  html+='<div id="modal-p-close" style="cursor:pointer;color:var(--muted);font-size:22px;line-height:1;padding:0 4px;user-select:none">&times;</div>';
-  html+='</div>';
-  html+='<div style="padding:14px 18px">';
-  html+='<div style="font-weight:600;font-size:15px;color:var(--text);margin-bottom:4px">'+emp.nombre+'</div>';
-  html+='<div style="color:var(--muted);font-size:12px;margin-bottom:12px;font-family:JetBrains Mono,monospace">CC: '+emp.doc+'</div>';
-  html+='<div style="color:var(--muted2);font-size:10px;text-transform:uppercase;letter-spacing:.5px">Turno programado</div>';
-  html+=turnosHtml;
-  html+='</div>';
-  card.innerHTML=html;
-  overlay.appendChild(card);
-  document.body.appendChild(overlay);
-  function cerrar(){
-    var o=document.getElementById('modal-p-overlay'); if(o) o.remove();
-    document.removeEventListener('keydown', escHandler);
-  }
-  function escHandler(e){ if(e.key==='Escape'||e.keyCode===27) cerrar(); }
-  overlay.addEventListener('click', function(e){ if(e.target===overlay) cerrar(); });
-  var closeBtn=document.getElementById('modal-p-close');
-  if(closeBtn) closeBtn.addEventListener('click', cerrar);
-  document.addEventListener('keydown', escHandler);
-}
-
-render();
-
+    t+='<div style="position:absolute;left:calc('+pE+'% - 3px);top:-5px;width:8px;height:8px;background:#fff;border-radius:50%;z-index:3;box-shadow:0
 </script>
 </body>
 </html>
