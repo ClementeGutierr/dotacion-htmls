@@ -50,7 +50,7 @@ table.sched td{padding:3px 5px;text-align:center}
 .upd-badge{position:fixed;top:8px;right:12px;background:rgba(0,0,0,0.55);color:#9fb4d8;padding:4px 10px;border-radius:6px;font-size:11px;z-index:9999;pointer-events:none}</style>
 </head>
 <body>
-<div class="upd-badge">Actualizado: 14/07/2026 04:52 pm</div>
+<div class="upd-badge">Actualizado: 14/07/2026 04:54 pm</div>
 <div class="wrap">
 <div class="header"><h1>OLIVIA MDE — Dotación</h1><div class="sub" id="subtitle"></div></div>
 <div class="pdv-bar" id="pdv-bar"></div>
@@ -149,7 +149,7 @@ function render(){
     pdvPanel.innerHTML='<div class="panel-hdr">Resumen PDV <span style="color:var(--muted);font-weight:400;font-size:12px">('+track.length+' personas)</span></div>';
     
     // Calculate 3-bar metrics
-    // Admins tienen salario fijo: NO se cuentan en extras/ocio (pero s\u00ed en costo)
+    // Admins tienen salario fijo: NO se cuentan en extras/ocio (pero sÃ­ en costo)
     var totalExcess=0, totalIdle=0, costHrs=0, countTc=0;
     track.forEach(function(emp){
       var isAdmin=emp.zona==='Admin';
@@ -162,7 +162,7 @@ function render(){
         costHrs+=emp.acum_real;
       }
     });
-    // City averages \u2014 tambi\u00e9n excluye admins
+    // City averages â€” tambiÃ©n excluye admins
     var cityEx=0,cityId=0,cityN=0;
     PDVS.forEach(function(p){
       var tr=STAFF_TRACK[p]||[];if(tr.length===0)return;cityN++;
@@ -260,7 +260,7 @@ function render(){
             return;
           }
           if(d.status==='NOVEDAD'){
-            // Etiqueta seg\u00fan novedad_tipo (VAC/INCP/CD/LMATER/LR/LNR/PERM/SUSP/CUMPLE/REN/AUSENCIA N)
+            // Etiqueta segÃºn novedad_tipo (VAC/INCP/CD/LMATER/LR/LNR/PERM/SUSP/CUMPLE/REN/AUSENCIA N)
             var nv=(d.novedad||'').toString().toUpperCase();
             var novLabel=nv;var novBg='#581c87';var novColor='#e9d5ff';
             if(nv.startsWith('VAC')){novLabel='VAC';novBg='#155e75';novColor='#a5f3fc';}
