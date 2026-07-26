@@ -50,7 +50,7 @@ table.sched td{padding:3px 5px;text-align:center}
 .upd-badge{position:fixed;top:8px;right:12px;background:rgba(0,0,0,0.55);color:#9fb4d8;padding:4px 10px;border-radius:6px;font-size:11px;z-index:9999;pointer-events:none}</style>
 </head>
 <body>
-<div class="upd-badge">Actualizado: 26/07/2026 11:49 am</div>
+<div class="upd-badge">Actualizado: 26/07/2026 12:12 pm</div>
 <div class="wrap">
 <div class="header"><h1>OLIVIA MDE — Dotación</h1><div class="sub" id="subtitle"></div></div>
 <div class="pdv-bar" id="pdv-bar"></div>
@@ -278,7 +278,7 @@ function render(){
             else if(nv.startsWith('LR')){novLabel='LR';novBg='#5b21b6';novColor='#c4b5fd';}
             else if(nv.startsWith('LNR')||nv.startsWith('PERM')){novLabel=nv.startsWith('LNR')?'LNR':'PERM';novBg='#3f3f46';novColor='#d4d4d8';}
             else if(nv.startsWith('SUSP')){novLabel='SUSP';novBg='#7c2d12';novColor='#fdba74';}
-            else if(nv.startsWith('CUMPLE')){novLabel='ðŸŽ‚';novColor='#f0abfc';}
+            else if(nv.startsWith('CUMPLE')){novLabel='&#127874;';novColor='#f0abfc';} /* torta como entidad HTML (ASCII puro): el emoji literal se danaba al incrustar el JS (mojibake) */
             else if(nv.startsWith('AUS')){novLabel='AUS';novBg='#3f3f46';novColor='#d4d4d8';}
             else if(nv.startsWith('REN')){novLabel='REN';novBg='#450a0a';novColor='#fca5a5';}
             t+='<td colspan="2" style="padding:3px 2px;font-size:10px;border-bottom:none;text-align:center;background:'+novBg+';color:'+novColor+';font-weight:600;'+bdrR+'" title="'+nv+'">'+novLabel+'</td>';
