@@ -52,7 +52,7 @@ table.sched td{padding:3px 5px;text-align:center}
 .grids .panel{width:100%}</style>
 </head>
 <body>
-<div class="upd-badge">Actualizado: 26/07/2026 12:12 pm</div>
+<div class="upd-badge">Actualizado: 26/07/2026 12:39 pm</div>
 <div class="wrap">
 <div class="header"><h1>CLAP CHICKEN MDE — Dotación</h1><div class="sub" id="subtitle"></div></div>
 <div class="pdv-bar" id="pdv-bar"></div>
@@ -288,8 +288,13 @@ function render(){
             return;
           }
           if(d.alert==='INC'){
-            t+='<td style="padding:3px 3px;opacity:'+(d.prog===0?.3:0.5)+';border-bottom:none;cursor:pointer" onclick="mostrarModalP(\''+pdv+'\',\''+emp.doc+'\',\''+dk+'\')">'+d.prog+'</td>';
-            t+='<td style="padding:3px 3px;font-weight:600;border-bottom:none;color:#facc15;'+bdrR+'">'+d.prog+'</td>';
+            /* FIX 26-jul (caso Darlyn): con marcacion incompleta se muestra lo MAYOR
+               conocido en la R (pares completos reales vs prog asumido). Antes, si el
+               dia era DESCANSO (prog 0), un turno real trabajado quedaba oculto en 0. */
+            var pInc=d.status==='DESC'?'D':d.prog;
+            var rInc=Math.max(d.real||0,d.prog||0);
+            t+='<td style="padding:3px 3px;opacity:'+(d.prog===0?.3:0.5)+';border-bottom:none;cursor:pointer" onclick="mostrarModalP(\''+pdv+'\',\''+emp.doc+'\',\''+dk+'\')">'+pInc+'</td>';
+            t+='<td style="padding:3px 3px;font-weight:600;border-bottom:none;color:#facc15;'+bdrR+'" title="Marcacion incompleta â€” se muestra lo mayor conocido (real de pares completos o prog)">'+rInc+'</td>';
             return;
           }
           var cls='';
