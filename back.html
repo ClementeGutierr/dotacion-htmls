@@ -50,7 +50,7 @@ table.sched td{padding:3px 5px;text-align:center}
 .upd-badge{position:fixed;top:8px;right:12px;background:rgba(0,0,0,0.55);color:#9fb4d8;padding:4px 10px;border-radius:6px;font-size:11px;z-index:9999;pointer-events:none}</style>
 </head>
 <body>
-<div class="upd-badge">Actualizado: 01/10/2026 08:16 am</div>
+<div class="upd-badge">Actualizado: 01/10/2026 12:44 pm</div>
 <div class="wrap">
 <div class="header"><h1>BACK — CDP · Logística · Mantenimiento</h1><div class="sub" id="subtitle"></div></div>
 <div class="pdv-bar" id="pdv-bar"></div>
@@ -493,6 +493,11 @@ function renderTrack(ct,pdv){
 
         var _refProg=emp.acum_prog;
         var diff=emp.acum_real-_refProg;
+        /* 01-oct-2026 (Clemente): con triangulo (paso el tope de hora extra) la
+           diferencia muestra la HORA EXTRA (real - tope), no real - programado. */
+        var _tx2=(emp.tope_extra!=null)?emp.tope_extra:emp.meta;
+        var _ttD='';
+        if(_sup){diff=emp.acum_real-_tx2;_ttD=' title="'+(Math.round(diff*10)/10)+'h de hora extra sobre el tope de '+_tx2+'h"';}
         var realColor=diff>2?'var(--over)':diff<-2?'var(--under)':'var(--green)';
         /* SUPERA LA META (Clemente 17-sep-2026): si el real del mes ya paso la
            meta, ROJO sin importar como vaya contra lo programado. Alguien con
@@ -502,7 +507,7 @@ function renderTrack(ct,pdv){
 
         t+='<td style="padding:2px 1px;opacity:.5;border-bottom:none;border-left:2px solid var(--border);text-align:center">'+emp.acum_prog+'</td>';
         t+='<td style="padding:2px 1px;font-weight:700;color:'+realColor+';border-bottom:none;text-align:center"'+(_sup?' title="Super&#243; el tope de hora extra ('+((emp.tope_extra!=null)?emp.tope_extra:emp.meta)+'h)"':'')+'>'+emp.acum_real+'</td>';
-        t+='<td style="padding:2px 1px;font-weight:600;color:'+realColor+';border-bottom:none;font-size:11px;text-align:center">'+(diff>0?'+':'')+Math.round(diff*10)/10+'</td>';
+        t+='<td'+_ttD+' style="padding:2px 1px;font-weight:600;color:'+realColor+';border-bottom:none;font-size:11px;text-align:center">'+(diff>0?'+':'')+Math.round(diff*10)/10+'</td>';
         t+='</tr>';
 
         // Progress bar row
