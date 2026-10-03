@@ -50,7 +50,7 @@ table.sched td{padding:3px 5px;text-align:center}
 .upd-badge{position:fixed;top:8px;right:12px;background:rgba(0,0,0,0.55);color:#9fb4d8;padding:4px 10px;border-radius:6px;font-size:11px;z-index:9999;pointer-events:none}</style>
 </head>
 <body>
-<div class="upd-badge">Actualizado: 03/10/2026 03:22 pm</div>
+<div class="upd-badge">Actualizado: 03/10/2026 04:03 pm</div>
 <div class="wrap">
 <div class="header"><h1>BACK — CDP · Logística · Mantenimiento</h1><div class="sub" id="subtitle"></div></div>
 <div class="pdv-bar" id="pdv-bar"></div>
@@ -165,7 +165,7 @@ var hasData=new Set(Object.keys(REAL_BY_DAY).filter(function(d){
    punto (Manila: +198h reales se veian como -27.8h). Se excluyen de TODOS los
    agregados: prog, real, ocio y costo. Se reconocen por el doc que arma
    build_schedules ('_1','_2'...) o por el nombre del placeholder.
-   OJO: tiene que vivir en el scope GLOBAL â€” quedo dentro de la vista de PDV y
+   OJO: tiene que vivir en el scope GLOBAL — quedo dentro de la vista de PDV y
    las vistas de ciudad reventaban con "esVac is not defined". */
 function esVac(e){
   var d=String((e&&e.doc)||'');
@@ -176,7 +176,7 @@ function esVac(e){
 }
 
 function render(){
-  document.getElementById('subtitle').textContent=SIN_CIUDAD?(PDVS_CI.length+' Ã¡reas'):(PDVS.length+' PDVs');
+  document.getElementById('subtitle').textContent=SIN_CIUDAD?(PDVS_CI.length+' áreas'):(PDVS.length+' PDVs');
   var pb=document.getElementById('pdv-bar');pb.innerHTML='';
   if(!SIN_CIUDAD){var cb=document.createElement('button');cb.className='pdv-btn'+(curPDV==='__CIUDAD__'?' active':'');cb.textContent='CIUDAD';cb.style.fontWeight='700';cb.onclick=function(){curPDV='__CIUDAD__';render();};pb.appendChild(cb);}
   PDVS_CI.forEach(function(p){var b=document.createElement('button');b.className='pdv-btn'+(p===curPDV?' active':'')+(esExtras(p)?' pdv-extras':'');b.textContent=p;b.onclick=function(){curPDV=p;render();};pb.appendChild(b);});
@@ -417,7 +417,7 @@ function renderTrack(ct,pdv){
           }
           if(d.status==='NUEVO'){
             /* REGLA 28-jul (Clemente): dia anterior a la fecha de ingreso segun
-               nomina (fechas_ingreso.json) â€” no genera ocio falso, badge NVO. */
+               nomina (fechas_ingreso.json) — no genera ocio falso, badge NVO. */
             t+='<td colspan="2" style="padding:3px 2px;font-size:10px;border-bottom:none;text-align:center;background:#0c4a6e;color:#bae6fd;font-weight:600;cursor:pointer;'+bdrR+'"'+ocA+' title="Aun no habia ingresado a la empresa (fecha ingreso segun nomina)">NVO</td>';
             return;
           }
@@ -429,7 +429,7 @@ function renderTrack(ct,pdv){
             return;
           }
           if(d.status==='NOVEDAD'){
-            // Etiqueta segÃºn novedad_tipo (VAC/INCP/CD/LMATER/LR/LNR/PERM/SUSP/CUMPLE/REN/AUSENCIA N)
+            // Etiqueta según novedad_tipo (VAC/INCP/CD/LMATER/LR/LNR/PERM/SUSP/CUMPLE/REN/AUSENCIA N)
             var nv=(d.novedad||'').toString().toUpperCase();
             var esCD=(nv==='CD'||nv.indexOf('CALAM')===0);
             var esLR=(nv==='LR'||nv.indexOf('LR ')===0||nv.indexOf('LICENCIA REMUNERADA')===0||nv.indexOf('LUTO')===0);
@@ -437,7 +437,7 @@ function renderTrack(ct,pdv){
               /* REGLA 23-jul (Clemente): CALAMIDAD DOMESTICA no reduce jornada.
                  REGLA 27-jul (Clemente): LICENCIA REMUNERADA (LR, incluye Luto) igual que CD.
                  OJO: LNR (no remunerada) NO entra aqui.
-                 La P del dia SI suma al programado (genera ocio) â€” se muestra normal
+                 La P del dia SI suma al programado (genera ocio) — se muestra normal
                  y clickeable, y el badge (con su color) va en el lugar de la R. */
               var nvBadge=esCD?'CD':'LR';
               var nvBadgeBg=esCD?'#7c2d12':'#5b21b6';
@@ -864,12 +864,12 @@ function mostrarModalP(pdv, doc, dayKey){
   html+='<div style="color:var(--muted);font-size:12px;margin-bottom:12px;font-family:JetBrains Mono,monospace">CC: '+emp.doc+'</div>';
   html+='<div style="color:var(--muted2);font-size:10px;text-transform:uppercase;letter-spacing:.5px">Turno programado</div>';
   html+=turnosHtml;
-  // FIX 17-jul: mostrar rangos reales ENTâ†’SAL (marcaciones del dÃ­a)
+  // FIX 17-jul: mostrar rangos reales ENT→SAL (marcaciones del día)
   var turnosR=d.turnos_reales||[];
   if(turnosR.length>0){
     html+='<div style="color:var(--muted2);font-size:10px;text-transform:uppercase;letter-spacing:.5px;margin-top:12px">Horario real</div>';
     for(var k=0;k<turnosR.length;k++){
-      var tr=String(turnosR[k]).replace(/â†’|->/,' &#8594; ');
+      var tr=String(turnosR[k]).replace(/→|->/,' &#8594; ');
       html+='<div style="font-family:JetBrains Mono,monospace;font-size:14px;color:#38bdf8;margin-top:4px">'+tr+'</div>';
     }
   }
@@ -1001,7 +1001,7 @@ function mostrarModalHora(pdv,area,h,dayKey){
     items.forEach(function(it){
       /* reales: quien NO tenia turno a esa hora va en naranja.
          programadas: quien NO estuvo va en azul claro (se queda en esta lista,
-         porque su turno existia â€” solo que no lo cubrio). */
+         porque su turno existia — solo que no lo cubrio). */
       var col=(it.prog===false)?C_EXTRA:((it.ok===false)?C_FALTO:color);
       var suf=(it.prog===false)?'  <span style="font-size:10px;color:'+C_EXTRA+'">sin turno</span>'
               :((it.ok===false)?'  <span style="font-size:10px;color:'+C_FALTO+'">no estuvo</span>':'');
